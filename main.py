@@ -36,7 +36,7 @@ class Pomodoro:
             variable,
             "Choose a design template",
             *config.design_options,
-            command=lambda x: self.change_design(x)
+            command=lambda x: self.change_design_by_template(x)
         )
         w.config(width=40)
         w.pack(pady=0, padx=100)
@@ -85,8 +85,8 @@ class Pomodoro:
         else:
             self.start_working_timer()
 
-    # Function that will change the background and button images chosen by the templates.
-    def change_design(self, variable):
+    # Change background and button images by chosen template.
+    def change_design_by_template(self, variable):
         global start_btn, stop_btn, bgg
 
         x = config.design_options[variable]
@@ -94,34 +94,23 @@ class Pomodoro:
             self.canvas.itemconfig(self.img, image=self.img1)
             start_btn = PhotoImage(file="images/start.png")
             stop_btn = PhotoImage(file="images/stop.png")
-            start_button = Button(self.root, image=start_btn, command=self.start_working_timer, borderwidth=0)
-            start_button.place(x=100, y=340)
-            reset_button = Button(self.root, image=stop_btn, command=self.reset_working_timer, borderwidth=0)
-            reset_button.place(x=600, y=340)
         if x == 'Moon':
             self.canvas.itemconfig(self.img, image=self.img2)
             start_btn = PhotoImage(file="images/start.png")
             stop_btn = PhotoImage(file="images/stop.png")
-            start_button = Button(self.root, image=start_btn, command=self.start_working_timer, borderwidth=0)
-            start_button.place(x=100, y=340)
-            reset_button = Button(self.root, image=stop_btn, command=self.reset_working_timer, borderwidth=0)
-            reset_button.place(x=600, y=340)
         if x == 'Stars':
             self.canvas.itemconfig(self.img, image=self.img3)
             start_btn = PhotoImage(file="images/start_red.png")
             stop_btn = PhotoImage(file="images/stop_red.png")
-            start_button = Button(self.root, image=start_btn, command=self.start_working_timer, borderwidth=0)
-            start_button.place(x=100, y=340)
-            reset_button = Button(self.root, image=stop_btn, command=self.reset_working_timer, borderwidth=0)
-            reset_button.place(x=600, y=340)
         if x == 'Winter-Forrest':
             self.canvas.itemconfig(self.img, image=self.img4)
             start_btn = PhotoImage(file="images/start.png")
             stop_btn = PhotoImage(file="images/stop.png")
-            start_button = Button(self.root, image=start_btn, command=self.start_working_timer, borderwidth=0)
-            start_button.place(x=100, y=340)
-            reset_button = Button(self.root, image=stop_btn, command=self.reset_working_timer, borderwidth=0)
-            reset_button.place(x=600, y=340)
+
+        start_button = Button(self.root, image=start_btn, command=self.start_working_timer, borderwidth=0, cursor="hand2")
+        start_button.place(x=100, y=340)
+        reset_button = Button(self.root, image=stop_btn, command=self.reset_working_timer, borderwidth=0, cursor="hand2")
+        reset_button.place(x=600, y=340)
 
 
 Pomodoro()
