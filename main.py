@@ -100,20 +100,15 @@ class Pomodoro:
         x = config.design_options[variable]
         if x == 'Tomato':
             self.canvas.itemconfig(self.img, image=self.img1)
-            start_btn = PhotoImage(file="images/start.png")
-            stop_btn = PhotoImage(file="images/stop.png")
         if x == 'Moon':
             self.canvas.itemconfig(self.img, image=self.img2)
-            start_btn = PhotoImage(file="images/start.png")
-            stop_btn = PhotoImage(file="images/stop.png")
         if x == 'Stars':
             self.canvas.itemconfig(self.img, image=self.img3)
-            start_btn = PhotoImage(file="images/start_red.png")
-            stop_btn = PhotoImage(file="images/stop_red.png")
         if x == 'Winter-Forrest':
             self.canvas.itemconfig(self.img, image=self.img4)
-            start_btn = PhotoImage(file="images/start.png")
-            stop_btn = PhotoImage(file="images/stop.png")
+
+        start_btn = PhotoImage(file="images/start.png")
+        stop_btn = PhotoImage(file="images/stop.png")
 
         self.start_button = Button(self.root, image=start_btn, command=self.start_working_timer, borderwidth=0, cursor="hand2")
         self.start_button.place(x=100, y=340)
