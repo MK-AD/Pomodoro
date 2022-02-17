@@ -7,12 +7,16 @@ rounds = 0
 timer = 0
 pomodoros = 0
 rep = 0
+disabled = 0
 
 
 class Pomodoro:
 
     # main function with inital ui.
     def __init__(self):
+        self.start_button = ''
+        self.reset_button = ''
+
         self.root = Tk()
         self.root.geometry("800x600")
         self.root.title("Pomodoro App")
@@ -45,7 +49,7 @@ class Pomodoro:
 
     # Start and working function.
     def start_working_timer(self):
-        global rounds, rep
+        global rounds, rep, disabled
         rounds += 1
 
         if rounds % 8 == 0:
@@ -59,10 +63,12 @@ class Pomodoro:
             self.calculate(config.working_timer)
             self.canvas.itemconfig(self.title_label, text="Work")
             self.canvas.itemconfig(self.pomodoro_counter, text=f"Pomodoros: {rep}")
+        self.start_button['state'] = 'disabled'
+        disabled = 1
 
     # Reset function.
     def reset_working_timer(self):
-        global rounds, rep
+        global rounds, rep, disabled
         rounds = 0
         rep = 0
 
@@ -70,6 +76,8 @@ class Pomodoro:
         self.canvas.itemconfig(self.timer_text, text="00:00")
         self.canvas.itemconfig(self.title_label, text="Timer")
         self.canvas.itemconfig(self.pomodoro_counter, text=f"Pomodoros: {rep}")
+        self.start_button['state'] = 'normal'
+        disabled = 0
 
     # Calculate remaining term.
     def calculate(self, count):
@@ -87,7 +95,7 @@ class Pomodoro:
 
     # Change background and button images by chosen template.
     def change_design_by_template(self, variable):
-        global start_btn, stop_btn, bgg
+        global start_btn, stop_btn, bgg, disabled
 
         x = config.design_options[variable]
         if x == 'Tomato':
@@ -107,10 +115,14 @@ class Pomodoro:
             start_btn = PhotoImage(file="images/start.png")
             stop_btn = PhotoImage(file="images/stop.png")
 
-        start_button = Button(self.root, image=start_btn, command=self.start_working_timer, borderwidth=0, cursor="hand2")
-        start_button.place(x=100, y=340)
-        reset_button = Button(self.root, image=stop_btn, command=self.reset_working_timer, borderwidth=0, cursor="hand2")
-        reset_button.place(x=600, y=340)
+        self.start_button = Button(self.root, image=start_btn, command=self.start_working_timer, borderwidth=0, cursor="hand2")
+        self.start_button.place(x=100, y=340)
+
+        self.reset_button = Button(self.root, image=stop_btn, command=self.reset_working_timer, borderwidth=0, cursor="hand2")
+        self.reset_button.place(x=600, y=340)
+
+        if disabled == 1:
+            self.start_button['state'] = 'disabled'
 
 
 Pomodoro()
